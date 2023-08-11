@@ -1,0 +1,89 @@
+<!--::regervation_part start::-->
+<section class="regervation_part section_padding" style="margin-top: 100px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="section_tittle">
+                  
+                    <h2>Dashboard Admin</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="regervation_part_iner">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Users</button>
+                          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Plats</button>
+                        </div>
+                      </nav>
+                      <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <table class="table table-dark table-striped">
+                              <tr>
+                                  <th>First Name</th>
+                                  <th>Last Name</th>
+                                  <th>Email</th>
+                                  <th>Tel</th>
+                                  <th>Role</th>
+                                  <th>Speciality</th>
+                                  <th>Experience</th>
+                                  <th>Date of birth</th>
+                                  <th>Actions</th>
+                              </tr>
+                              <tr *ngFor="let u of users">
+                                  <td>{{u.firstName | lowercase}}</td>
+                                  <td>{{u.lastName | uppercase}}</td>
+                                  <td>{{u.email}}</td>
+                                  <td>{{u.tel}}</td>
+                                  <!-- <td [ngStyle]="{'color' : getColor(u.role) }">{{u.role}}</td> -->
+                                  <td [ngClass]="{
+                                      'blue' : u.role == 'admin',
+                                      'orange' : u.role == 'client',
+                                      'green' : u.role == 'chef'}">{{u.role}}</td>
+                                  <td>{{u.speciality }}</td>
+                                  <td>{{u.experience}}</td>
+                                  <td>{{u.dateOfBirth  | date}}</td>
+                                  <td>
+                                    <button type="button" class="btn btn-primary text-primary" (click)="displayUser(u._id)">Display</button>
+                                    <button type="button" class="btn btn-warning text-warning" (click)="editUser(u._id)">Edit</button>
+                                    <button type="button" class="btn btn-danger text-danger" (click)="deleteUser(u._id)">Delete</button>
+
+                                  </td>
+                                  
+                              </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <table class="table table-dark table-striped">
+                                <tr>
+                                    <th>Plat Name</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Chef Name</th>
+                                    
+                                </tr>
+                                <tr *ngFor="let p of plats">
+                                    <td>{{p.platName}}</td>
+                                    <td>{{p.price}}</td>
+                                    <td>{{p.description}}</td>
+                               
+                                    <ng-container *ngFor="let u of users">
+                                        <td *ngIf="u._id == p.idChef">
+                                            {{u.firstName}}
+                                        </td>
+                                    </ng-container>
+                                  
+                                    
+                                    
+                                </tr>
+                              </table>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--::regervation_part end::-->
